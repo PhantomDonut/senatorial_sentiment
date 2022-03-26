@@ -28,7 +28,7 @@ def inverse_lerp(a, b, v):
 
 def main():
     dir = os.path.dirname(os.path.realpath(__file__))
-    json_path = os.path.join(dir, 'tweet_data.json')
+    json_path = os.path.join(dir, 'full_tweet_data.json')
     loaded_object = twitter_analysis.read_from_json(json_path)
 
     #stopwords = nltk.corpus.stopwords.words("english")
@@ -83,7 +83,7 @@ def main():
     #print(sia.polarity_scores(test_tweet))
 
     # create_word_freq(cleaned_words)
-    #load_word_frequency_chart(os.path.join(dir, 'unigram_freq.csv'))
+    #load_word_frequency_chart(os.path.join(dir, 'data/unigram_freq.csv'))
 
 if __name__ == '__main__':
     main()

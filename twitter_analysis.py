@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 import tweepy
 import pandas as pd
 from us_state_codes import states
-import time
 
 class Politician:
     def __init__(self, name, username, party, state):
@@ -39,7 +38,7 @@ def get_user_tweets(account_username):
 
     user = client.get_user(username=account_username)
 
-    maximum_tweets = 400 # Actually evaluates for an extra loop of maximum_tweets + 100
+    maximum_tweets = 5000 # Actually evaluates for an extra loop of maximum_tweets + 100
     continue_loop = True
     next_token = None
     tweets_evaluated = 0
@@ -73,17 +72,34 @@ def generate_tweet_data(dir, handle_file, indent_level = 4):
 
     for i in range(0, handles_df.shape[0]):
         # current_pol[0] is Name, [1] is Twitter URL, [2] is State, [3] is Party
-        current_pol = handles_df.iloc[i]
-        test_politician = Politician(reverse_name(current_pol[0]), split_username(current_pol[1]), party_dict[current_pol[3]], states[str(current_pol[2])])
-        test_politician.tweets = get_user_tweets(test_politician.username)
-        print(f'i is {i} and {test_politician}')
-        json_string = f'{json_string}{test_politician.string_JSON(indent_level)},\n'
+        iter_row = handles_df.iloc[i]
+        current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states[str(iter_row[2])])
+        current_politician.tweets = get_user_tweets(current_politician.username)
+        print(f'i is {i} and {current_politician}')
+        json_string = f'{json_string}{current_politician.string_JSON(indent_level)},\n'
     
     return f'{json_string[:-2]}\n]'
 
 def write_to_json(file_path, json_string):
     with open(file_path, 'w') as outfile:
         outfile.write(json_string)
+
+def generate_tweet_data_direct_write(dir, handle_file, output_file, indent_level = 4, start_from = 0):
+    party_dict = {'D':'Democrat', 'R':'Republican', 'I':'Independent'}
+    handles_df = pd.read_excel(os.path.join(dir, handle_file))
+    with open(os.path.join(dir, output_file), 'w') as outfile:
+        if start_from == 0:
+            outfile.write('[\n')
+        for i in range(start_from, handles_df.shape[0]):
+            # current_pol[0] is Name, [1] is Twitter URL, [2] is State, [3] is Party
+            iter_row = handles_df.iloc[i]
+            current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states[str(iter_row[2])])
+            current_politician.tweets = get_user_tweets(current_politician.username)
+            print(f'i is {i} and {current_politician}')
+            outfile.write(current_politician.string_JSON(indent_level))
+            if i != handles_df.shape[0] - 1:
+                outfile.write(',\n')
+        outfile.write('\n]')
 
 def read_from_json(file_path):
     with open(file_path) as json_file:
@@ -97,9 +113,11 @@ def split_username(full_url):
 
 def main():
     dir = os.path.dirname(os.path.realpath(__file__))
-    json_path = os.path.join(dir, 'tweet_data.json')
-
-    write_to_json(json_path, generate_tweet_data(dir, 'congress_twitter_handles.xlsx'))
+    
+    #json_path = os.path.join(dir, 'full_tweet_data.json')
+    #write_to_json(json_path, generate_tweet_data(dir, 'congress_twitter_handles.xlsx'))
+    
+    generate_tweet_data_direct_write(dir, 'data/congress_twitter_handles.xlsx', 'full_tweet_data.json', start_from=56)
 
     #loaded_object = read_from_json(json_path)
     
