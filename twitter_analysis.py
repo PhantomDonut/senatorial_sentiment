@@ -101,15 +101,7 @@ def main():
 
     write_to_json(json_path, generate_tweet_data(dir, 'congress_twitter_handles.xlsx'))
 
-    loaded_object = read_from_json(json_path)
-    
-    for politician in loaded_object:
-            print(f"{politician['name']} ({politician['party']}) from {politician['state']} has {len(politician['tweets'])} Tweets")
-            #for tweet in politician['tweets']:
-            #    pass
-                #print(tweet['text'])
-                #for field in tweet.values():
-                #    print(field)
+    #loaded_object = read_from_json(json_path)
     
                
 if __name__ == "__main__":
