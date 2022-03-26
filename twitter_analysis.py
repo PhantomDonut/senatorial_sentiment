@@ -3,7 +3,6 @@ import json
 from dotenv import load_dotenv
 import tweepy
 import pandas as pd
-from us_state_codes import states
 
 class Politician:
     def __init__(self, name, username, party, state):
@@ -67,13 +66,14 @@ def get_user_tweets(account_username):
 
 def generate_tweet_data(dir, handle_file, indent_level = 4):
     party_dict = {'D':'Democrat', 'R':'Republican', 'I':'Independent'}
+    states_dict = json.loads(os.path.join(dir, 'data/us_state_codes.json'))
     handles_df = pd.read_excel(os.path.join(dir, handle_file))
     json_string = '[\n'
 
     for i in range(0, handles_df.shape[0]):
         # current_pol[0] is Name, [1] is Twitter URL, [2] is State, [3] is Party
         iter_row = handles_df.iloc[i]
-        current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states[str(iter_row[2])])
+        current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states_dict[str(iter_row[2])])
         current_politician.tweets = get_user_tweets(current_politician.username)
         print(f'i is {i} and {current_politician}')
         json_string = f'{json_string}{current_politician.string_JSON(indent_level)},\n'
@@ -86,6 +86,7 @@ def write_to_json(file_path, json_string):
 
 def generate_tweet_data_direct_write(dir, handle_file, output_file, indent_level = 4, start_from = 0):
     party_dict = {'D':'Democrat', 'R':'Republican', 'I':'Independent'}
+    states_dict = json.loads(os.path.join(dir, 'data/us_state_codes.json'))
     handles_df = pd.read_excel(os.path.join(dir, handle_file))
     with open(os.path.join(dir, output_file), 'w') as outfile:
         if start_from == 0:
@@ -93,7 +94,7 @@ def generate_tweet_data_direct_write(dir, handle_file, output_file, indent_level
         for i in range(start_from, handles_df.shape[0]):
             # current_pol[0] is Name, [1] is Twitter URL, [2] is State, [3] is Party
             iter_row = handles_df.iloc[i]
-            current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states[str(iter_row[2])])
+            current_politician = Politician(reverse_name(iter_row[0]), split_username(iter_row[1]), party_dict[iter_row[3]], states_dict[str(iter_row[2])])
             current_politician.tweets = get_user_tweets(current_politician.username)
             print(f'i is {i} and {current_politician}')
             outfile.write(current_politician.string_JSON(indent_level))
