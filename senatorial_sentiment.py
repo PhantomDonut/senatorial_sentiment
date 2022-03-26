@@ -49,7 +49,7 @@ def main():
             overall_polarity = overall_polarity + polarity['compound']
             #print('\n\n')
         overall_polarity = overall_polarity / len(politician['tweets'])
-        polarity_database[politician['name']] = [overall_polarity, 0]
+        polarity_database[politician['name']] = [overall_polarity, 0, politician['party'], politician['state']]
     
     min = 1
     max = -1
@@ -60,9 +60,18 @@ def main():
         elif polarity[0] > max:
             max = polarity[0]
 
+    data_holder = []
+    #output_df = pd.DataFrame(data_dict)
+
     for politician in polarity_database:
         polarity_database[politician][1] = inverse_lerp(min, max, polarity_database[politician][0])
-        print(f'{politician} has a relative polarity of {polarity_database[politician][1]} and an absolute of {polarity_database[politician][0]}')
+        #print(f'{politician} has a relative polarity of {polarity_database[politician][1]} and an absolute of {polarity_database[politician][0]}')
+        data_holder.append({'Politician':politician, 'Party':polarity_database[politician][2], 'State':polarity_database[politician][3], 'Polarity':polarity_database[politician][0], 'Relative Polarity':polarity_database[politician][1]})
+    
+    output_df = pd.DataFrame(data_holder)
+
+    print(output_df.head)
+    output_df.to_csv(os.path.join(dir, 'polarity.csv'), index=False)
 
     #string_no_punctuation = re.sub("[^\w\d'\s]+", "", test_tweet)
     #string_split = string_no_punctuation.lower().split()
