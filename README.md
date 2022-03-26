@@ -28,6 +28,6 @@ The sentiment scores, political affiliation, and state for each Senator are expo
 *Disclaimer: No individual non-public figures are included in the dataset in-depth nor are any individual Tweets presented as data viewable by the end-user.*
 
 ## Usage & Modification
-Anyone wishing to perform analysis on the compiled Twitter data can import the [*full_tweet_data.json*](full_tweet_data.json) file into any JSON-compatible processor. The [*sentiment_analysis.py*](sentiment_analysis.py) Python script provides an example of importing, navigating the structure of, and performing sentiment analysis on this data. Please note that the full data file contains ~2.7 million lines of text and may be slow to view and operate upon.
+Anyone wishing to perform analysis on the compiled Twitter data can unzip and import the [*full_tweet_data.zip*](full_tweet_data.zip) file into any JSON-compatible processor. The [*senatorial_sentiment.py*](senatorial_sentiment.py) Python script provides an example of importing, navigating the structure of, and performing sentiment analysis on this data. Please note that the full data file contains ~2.8 million lines of text and may be slow to view and operate upon.
 
 Operating the included [*twitter_analysis.py*](twitter_analysis.py) Python script requires the creation of *.env* file in the same local folder with the Twitter Developer bearer token, access token, client token, and corresponding secrets. These can be acquired by applying for a [Twitter Developer Account](https://developer.twitter.com/)
