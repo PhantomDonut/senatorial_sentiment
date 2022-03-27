@@ -25,7 +25,7 @@ Twitter's own API limits pose an interference in compiling a comprehensive chron
 ## Display & Visualization
 The sentiment scores, political affiliation, and state for each Senator are exported as a .csv for further exploration. Tableau is then used to parse the *.csv* into a variety of comprehensive and easily-readable tables, charts, and visualizations.
 
-<p align="center"><a href="https://ianmacdonald.me/sentorialsentiment.php" target="_blank" rel="noopener noreferrer"><img src="visualizations/us_map_alpha.png?raw=true" alt="re-frame logo"></a></p>
+<p align="center"><a href="https://ianmacdonald.me/sentorialsentiment.php" target="_blank" rel="noopener noreferrer"><img src="visualizations/us_map_dark_alpha.png?raw=true" alt="re-frame logo"></a></p>
 <p align="center"><a href="https://ianmacdonald.me/sentorialsentiment.php" target="_blank" rel="noopener noreferrer"><img src="visualizations/positive_states_dark_alpha.png?raw=true" alt="re-frame logo"></a></p>
 <p align="center"><a href="https://ianmacdonald.me/sentorialsentiment.php" target="_blank" rel="noopener noreferrer"><img src="visualizations/positive_senators_dark_alpha.png?raw=true" alt="re-frame logo"></a></p>
 
