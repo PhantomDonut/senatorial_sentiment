@@ -1,32 +1,10 @@
 import pandas as pd
 import os
 import regex as re
-import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 import twitter_analysis
 import datetime
 import numpy as np
-
-def load_word_frequency_chart(file_name):
-    df = pd.read_csv(file_name)
-
-    #most_common_100 = df['word'].iloc[:100]
-    #print(most_common_100)
-
-    frequency_dict = dict(df.values)
-    print(frequency_dict['the'])
-
-def create_word_freq(word_list):
-    word_frequency = {}
-    for word in word_list:
-        if word in word_frequency:
-            word_frequency[word] = word_frequency[word] + 1
-        else:
-            word_frequency[word] = 1
-    return word_frequency
-
-def inverse_lerp(a, b, v):
-    return (v - a) / (b - a)
 
 def compile_tweet_sentiments(dir, politician_collection):
     sia = SentimentIntensityAnalyzer()
@@ -66,13 +44,6 @@ def main():
 
     #stopwords = nltk.corpus.stopwords.words("english")
     compile_tweet_sentiments(dir, loaded_object)
-
-    #string_no_punctuation = re.sub("[^\w\d'\s]+", "", test_tweet)
-    #string_split = string_no_punctuation.lower().split()
-    #cleaned_words = [word for word in string_split if word not in stopwords]
-
-    # create_word_freq(cleaned_words)
-    #load_word_frequency_chart(os.path.join(dir, 'data/unigram_freq.csv'))
 
 if __name__ == '__main__':
     main()
