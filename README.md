@@ -1,9 +1,9 @@
-<p align="center"><a href="https://phantomdonut.github.io/senatorial-sentiment" target="_blank" rel="noopener noreferrer"><img src="images/senatorial_logo.png?raw=true" alt="re-frame logo"></a></p>
+<p align="center"><a href="https://phantomdonut.github.io/senatorial-sentiment" target="_blank" rel="noopener noreferrer"><img src="images/logos/senatorial_logo.png?raw=true" alt="re-frame logo"></a></p>
 
 # Senatorial Sentiment
 
 ## Overview
-Quantitative **sentiment analysis** of all Tweets made by **U.S. Senators** in the 117th Congress. The overall goal of the project is to gain a better understanding for how the sentiment of public officials has changed over time in America's increasingly polarized political climate. Additionally, studying the intersection of the **polarity** of the **sentiment** of the Tweets in relation to illuminate if certain sentiments garner more **interaction** than usual. 
+Quantitative **sentiment analysis** of all Tweets made by **U.S. Senators** in the 117th Congress. The overall goal of the project is to gain a better understanding for how the sentiment of public officials has changed over time in America's increasingly polarized political climate. Additionally, studying the intersection of the **polarity** of the **sentiment** of the Tweets in relation to illuminate if certain sentiments garner more **interaction**. 
 
 Created for the William & Mary [Cypher VII Hackathon](https://cypher-vii.devpost.com/), March 25 - 27, 2022.
 
